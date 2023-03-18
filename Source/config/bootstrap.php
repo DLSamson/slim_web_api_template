@@ -49,20 +49,23 @@ $containerBuilder->addDefinitions([
     },
 ]);
 
+/* Env file */
+$dotenv = Dotenv::createImmutable(ROOT_PATH);
+$dotenv->safeLoad();
+
 /* Container and Eloquent */
 try {
     $container = $containerBuilder->build();
     $eloquent = new Capsule();
-    $env = $container->get('env');
     $eloquent->addConnection([
         'driver' => 'mysql',
-        'host' => $env['DB_HOST'],
-        'database' => $env['DB_NAME'],
-        'username' => $env['DB_USERNAME'],
-        'password' => $env['DB_PASSWORD'],
+        'host' => $_ENV['DB_HOST'],
+        'database' => $_ENV['DB_NAME'],
+        'username' => $_ENV['DB_USERNAME'],
+        'password' => $_ENV['DB_PASSWORD'],
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci',
-        'prefix' => $env['DB_PREFIX'] ?: '',
+        'prefix' => $_ENV['DB_PREFIX'] ?: '',
     ]);
     $eloquent->setAsGlobal();
 
