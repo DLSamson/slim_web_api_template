@@ -1,0 +1,58 @@
+version: '3.9'
+
+networks:
+  api:
+    driver: 'bridge'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - './Docker/nginx/conf.d:/etc/nginx/conf.d'
+      - '../Source/public:/var/www/html/public'
+    ports:
+      - '8080:80'
+    networks:
+      - api
+    links:
+      - 'php:php'
+    depends_on:
+      - php
+    restart: always
+
+  php:
+    build:
+      context: './Docker/php'
+    command: 'make docker_init'
+    volumes:
+      - '../Source/:/var/www/html/'
+    working_dir: '/var/www/html/'
+    user: '1000:1000'
+    links:
+      - 'mysql:mysql'
+    networks:
+      - api
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_NAME: database
+      DB_USERNAME: user
+      DB_PASSWORD: user
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - './Docker/volumes/mysql:/var/lib/mysql'
+    networks:
+      - api
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 2s
+      retries: 10

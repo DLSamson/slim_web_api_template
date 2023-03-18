@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+
+Source/vendor/
+Source/cache/
+Source/log/
+Source/.env
+
+Docker/volumes/
