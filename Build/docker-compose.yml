@@ -32,9 +32,9 @@ services:
       - 'mysql:mysql'
     networks:
       - api
-#    depends_on:
-#      mysql:
-#        condition: service_healthy
+    depends_on:
+      mysql:
+        condition: service_healthy
     environment:
       DB_HOST: mysql
       DB_NAME: database

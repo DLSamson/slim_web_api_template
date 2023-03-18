@@ -12,9 +12,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+if(!defined('ROOT_PATH'))
+    define('ROOT_PATH', dirname(__DIR__));
+
 /* Folders */
 if(!is_dir(ROOT_PATH.'/log'))
     mkdir(ROOT_PATH.'/log');
+
+if(!is_dir(ROOT_PATH.'/cache'))
+    mkdir(ROOT_PATH.'/cache');
 
 if(!is_dir(ROOT_PATH.'/cache/templates'))
     mkdir(ROOT_PATH.'/cache/templates');

@@ -27,13 +27,20 @@ Other technologies:
 
 You can start docker container with these commands
 
-It will create database on first launch
-
+Firstly install all composer dependecies
 ```shell
-cd Build
-docker-compose up
+cd Source
+composer install
 ```
 
+Then run docker-compose
+
+```shell
+cd ../Build 
+docker-compose up
+``` 
+
+It will create database on first launch
 
 ## Config
 
