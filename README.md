@@ -21,6 +21,7 @@ Other technologies:
 * PHP-FPM 8.2
 * Nginx
 * PostgreSQL
+* Adminer
 
 
 ## Start Working
