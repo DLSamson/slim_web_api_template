@@ -58,14 +58,14 @@ try {
     $container = $containerBuilder->build();
     $eloquent = new Capsule();
     $eloquent->addConnection([
-        'driver' => 'mysql',
+        'driver' => $_ENV['DB_TYPE'],
         'host' => $_ENV['DB_HOST'],
         'database' => $_ENV['DB_NAME'],
         'username' => $_ENV['DB_USERNAME'],
         'password' => $_ENV['DB_PASSWORD'],
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci',
-        'prefix' => $_ENV['DB_PREFIX'] ?: '',
+        'prefix' => !empty($_ENV['DB_PREFIX']) ? $_ENV['DB_PREFIX'] : '',
     ]);
     $eloquent->setAsGlobal();
 

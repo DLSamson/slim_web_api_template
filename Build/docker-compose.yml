@@ -29,30 +29,28 @@ services:
     working_dir: '/var/www/html/'
     user: '1000:1000'
     links:
-      - 'mysql:mysql'
+      - 'db:db'
     networks:
       - api
     depends_on:
-      mysql:
+      db:
         condition: service_healthy
     environment:
-      DB_HOST: mysql
+      DB_TYPE: pgsql
+      DB_HOST: db
       DB_NAME: database
-      DB_USERNAME: user
-      DB_PASSWORD: user
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
 
-  mysql:
-    image: mysql:8.0
-    volumes:
-      - './Docker/volumes/mysql:/var/lib/mysql'
+  db:
+    image: postgres:latest
     networks:
       - api
     environment:
-      MYSQL_DATABASE: database
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: database
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 2s
-      retries: 10
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      timeout: 5s
+      retries: 20
