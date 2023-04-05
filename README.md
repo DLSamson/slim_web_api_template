@@ -20,7 +20,7 @@ It also has some support packages such as:
 Other technologies:
 * PHP-FPM 8.2
 * Nginx
-* MySQL
+* PostgreSQL
 
 
 ## Start Working
@@ -63,9 +63,6 @@ To create tables in database you can use command from Makefile
 ```shell
 make database
 ```
-
-The database is stored in `Docker/volumes/mysql`
-
 
 ## Routes
 
