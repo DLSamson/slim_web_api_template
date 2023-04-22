@@ -57,7 +57,11 @@ $containerBuilder->addDefinitions([
         $fenom->addModifier('route', function($variable, $params = []) use ($container) {
             /* @var Slim\App $app */
             $app = $container->get(App::class);
-            return $app->getRouteCollector()->getNamedRoute($variable)->getPattern();
+            $url = $app->getRouteCollector()->getNamedRoute($variable)->getPattern();
+            foreach ($params as $key => $value) {
+                $url = str_replace("{".$key."}", urlencode($value), $url);
+            }
+            return $url;
         });
         return $fenom;
     }),
