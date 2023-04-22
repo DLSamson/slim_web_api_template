@@ -18,8 +18,8 @@
 	</div>
 	<div class="container">
 		<p>{$message}</p>
-		<p>Checkout <a href="/info">phpinfo()</a></p>
-		<p>Also try echo <a href="/echo/EchoValue">/echo/EchoValue</a></p>
+		<p>Checkout <a href="{'pages.info' | route}">phpinfo()</a></p>
+		<p>Also try echo <a href="{'api.echo' | route}">/echo/EchoValue</a></p>
 	</div>
 </body>
 
