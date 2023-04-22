@@ -35,8 +35,8 @@ if(!is_dir(ROOT_PATH.'/templates'))
 /* Container */
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->useAutowiring(true);
-$containerBuilder->enableCompilation(__DIR__ . '/cache');
-$containerBuilder->writeProxiesToFile(true, __DIR__ . '/cache/proxies');
+$containerBuilder->enableCompilation(ROOT_PATH . '/cache');
+$containerBuilder->writeProxiesToFile(true, ROOT_PATH . '/cache/proxies');
 
 $containerBuilder->addDefinitions([
     App::class => DI\factory(function($container) {
